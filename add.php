@@ -1,5 +1,5 @@
 <?php
-
+require_once 'partials/_check_is_logged.php';
 
 
 

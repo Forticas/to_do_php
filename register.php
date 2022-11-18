@@ -1,5 +1,8 @@
 <?php
 
+require_once 'partials/_check_is_not_logged.php';
+
+
 if(isset($_POST['submit'])){
     session_start();
     // vérification de la présence des datas dans tous les champs
