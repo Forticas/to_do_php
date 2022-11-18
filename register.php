@@ -79,6 +79,4 @@ if(isset($_POST['submit'])){
     
 }
 
-
-
 require_once 'views/register.php';

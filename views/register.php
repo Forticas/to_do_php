@@ -10,6 +10,7 @@
 </head>
 <body>
     <div class="container">
+        <?php require_once 'partials/_errors.php' ?>
         <!-- register form with email and password repeat -->
         <form action="register.php" method="post">
             <!-- input for email -->
