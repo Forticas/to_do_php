@@ -4,7 +4,7 @@ require_once 'partials/_check_is_not_logged.php';
 
 
 if(isset($_POST['submit'])){
-    session_start();
+    require_once 'partials/_start_session.php';
     // vérification de la présence des datas dans tous les champs
     if(empty($_POST['email']) || empty($_POST['password']) || empty($_POST['password_repeat'])){
         $_SESSION['errors'][] = "veuillez remplir tous les champs";
