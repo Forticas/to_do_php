@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous" defer></script>
-</head>
-<body>
+<?php ob_start() ?>
     <div class="container">
         <?php require_once 'partials/_errors.php' ?>
         <!-- register form with email and password repeat -->
-        <form action="register.php" method="post">
+        <form action="register.php" method="post" id="register">
             <!-- input for email -->
             <div class="form-group">
                 <label for="email">Email</label>
@@ -34,5 +24,45 @@
             </div>
         </form>
     </div>
-</body>
-</html>
+
+    <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
+
+    <script>
+        const validation = new window.JustValidate('#register');
+        validation
+        .addField('#email', [
+            {
+            rule: 'required',
+            errorMessage: 'Email is required',
+            },
+            {
+            rule: 'email',
+            errorMessage: 'Email is invalid!',
+            },
+        ])  
+        .addField('#password', [
+            {
+            rule: 'strongPassword',
+            },
+        ])
+        .addField('#password_repeat', [
+            {
+                validator: (value, fields) => {
+                    if (fields['#password'] && fields['#password'].elem) {
+                        const repeatPasswordValue = fields['#password'].elem.value;
+
+                        return value === repeatPasswordValue;
+                    }
+
+        return true;
+        },
+        errorMessage: 'Passwords should be the same',
+    },
+    ]);
+    </script>
+
+<?php 
+$content = ob_get_clean() ;
+$title = "Register Page";
+include 'layout.php'
+?>
