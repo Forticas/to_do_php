@@ -2,7 +2,7 @@
     <div class="container">
         <?php require_once 'partials/_errors.php' ?>
         <!-- register form with email and password repeat -->
-        <form action="register.php" method="post" id="register">
+        <form action="register.php" method="post" id="register" enctype="multipart/form-data">
             <!-- input for email -->
             <div class="form-group">
                 <label for="email">Email</label>
@@ -18,6 +18,10 @@
                 <label for="password_repeat">Repeat Password</label>
                 <input type="password" name="password_repeat" id="password_repeat" class="form-control">
             </div>
+            <div class="form-group">
+                <label for="file">Profile Pic</label>
+                <input type="file" name="file" id="file" class="form-control">
+            </div>
             <!-- input for Submit -->
             <div class="form-group">
                 <input type="submit" name="submit" value="Register" class="btn btn-primary">
@@ -27,7 +31,7 @@
 
     <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
 
-    <script>
+    <script>/*
         const validation = new window.JustValidate('#register');
         validation
         .addField('#email', [
@@ -58,7 +62,7 @@
         },
         errorMessage: 'Passwords should be the same',
     },
-    ]);
+    ]);*/
     </script>
 
 <?php 

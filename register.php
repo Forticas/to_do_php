@@ -1,9 +1,21 @@
 <?php
 
+
+
+
+
+
 require_once 'partials/_check_is_not_logged.php';
 
 
 if(isset($_POST['submit'])){
+
+    var_dump($_FILES);
+
+    move_uploaded_file($_FILES["file"]["tmp_name"], 'uploads/'. basename($_FILES["file"]["name"]));
+
+    die;
+
     require_once 'partials/_start_session.php';
     // vérification de la présence des datas dans tous les champs
     if(empty($_POST['email']) || empty($_POST['password']) || empty($_POST['password_repeat'])){
@@ -63,10 +75,11 @@ if(isset($_POST['submit'])){
     if(empty($_SESSION['errors']))    {
     // enregistrement dans la bdd
      
-        $stmt2 =  $pdo->prepare("INSERT INTO user (email , `password`) VALUES (:email, :password)");
+        $stmt2 =  $pdo->prepare("INSERT INTO user (email , `password`, profile_pic) VALUES (:email, :password, :profile_pic)");
         $stmt2->execute([
             'email' => $secured_data['email'],
-            'password' => password_hash($secured_data['password'], PASSWORD_ARGON2ID)
+            'password' => password_hash($secured_data['password'], PASSWORD_ARGON2ID),
+            'profile_pic' =>  basename($_FILES["file"]["name"])
         ]);
     // fermer la cnx vers la bdd
         $pdo == null;
@@ -82,4 +95,4 @@ if(isset($_POST['submit'])){
     
 }
 
-require_once 'views/register.php';
+require_once 'views/register.php'; 
