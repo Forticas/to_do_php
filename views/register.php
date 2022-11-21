@@ -18,10 +18,7 @@
                 <label for="password_repeat">Repeat Password</label>
                 <input type="password" name="password_repeat" id="password_repeat" class="form-control">
             </div>
-            <div class="form-group">
-                <label for="file">Profile Pic</label>
-                <input type="file" name="file" id="file" class="form-control">
-            </div>
+           
             <!-- input for Submit -->
             <div class="form-group">
                 <input type="submit" name="submit" value="Register" class="btn btn-primary">
