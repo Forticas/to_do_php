@@ -3,7 +3,7 @@
 <div class="container">
         <?php require_once 'partials/_errors.php' ?>
         <!-- register form with email and password repeat -->
-        <form action="register.php" method="post" id="register">
+        <form action="" method="post" id="register">
             <!-- input for email -->
             <div class="form-group">
                 <label for="email">Email</label>
