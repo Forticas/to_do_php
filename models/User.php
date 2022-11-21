@@ -1,5 +1,5 @@
 <?php
-
+require_once 'partials/Connexion.php';
 
 class User{
 
@@ -58,7 +58,7 @@ class User{
     {
         $cnx = new Connexion();
         $pdo = $cnx->getPdo();
-        
+
         $stmt = $pdo->prepare("SELECT * FROM user WHERE email = :email");
         $stmt->execute([
             'email' => $this->email
@@ -69,4 +69,18 @@ class User{
         return $count_user>0 ? true : false;
     }
 
+
+
+    public static function findOneByEmail(string $email){
+        $cnx = new Connexion();
+        $pdo = $cnx->getPdo();
+
+        $stmt = $pdo->prepare("SELECT * from user WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS , __CLASS__);
+        $user = $stmt->fetch();
+
+        return $user;
+    }
 }
