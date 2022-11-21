@@ -41,18 +41,8 @@ class User{
 
     public function insert()
     {
-        $db_config = parse_ini_file('config/db.ini');
-
-        try {
-            $pdo = new PDO(
-                "mysql:host=".$db_config['db_host'].";dbname=".$db_config['db_name'],
-                $db_config['db_user'],
-                $db_config['db_password']
-            );
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            die;
-        }
+       $cnx = new Connexion();
+       $pdo = $cnx->getPdo();
 
         $stmt = $pdo->prepare("INSERT INTO user (`email`, `password`) VALUES (:email, :password)");
         $stmt->execute([
@@ -60,24 +50,15 @@ class User{
             'password' => $this->password
         ]);
 
-        unset($pdo);
+        
 
     }
 
     public function isExisted()
     {
-        $db_config = parse_ini_file('config/db.ini');
-
-        try {
-            $pdo = new PDO(
-                "mysql:host=".$db_config['db_host'].";dbname=".$db_config['db_name'],
-                $db_config['db_user'],
-                $db_config['db_password']
-            );
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            die;
-        }
+        $cnx = new Connexion();
+        $pdo = $cnx->getPdo();
+        
         $stmt = $pdo->prepare("SELECT * FROM user WHERE email = :email");
         $stmt->execute([
             'email' => $this->email
